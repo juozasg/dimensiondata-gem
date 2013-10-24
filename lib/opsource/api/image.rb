@@ -5,7 +5,7 @@ module Opsource::API
       get
     end
 
-    def deployed_customer_list
+    def deployed_list
       endpoint "/#{org_id}/image/deployed"
       get
     end
