@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'active_support'
   s.add_dependency 'typhoeus'
-  s.add_dependency 'xmlsimple'
+  s.add_dependency 'xml-simple'
   s.add_dependency 'hashie'
   s.add_dependency 'colorize'
 end
