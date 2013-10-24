@@ -1,11 +1,11 @@
 module Opsource::API
   class Image < Core
-    def list_server_images
+    def server_list
       endpoint '/base/image'
       get
     end
 
-    def list_deployed_customer_images
+    def deployed_customer_list
       endpoint "/#{org_id}/image/deployed"
       get
     end
