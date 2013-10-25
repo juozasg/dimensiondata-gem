@@ -9,5 +9,10 @@ module Opsource::API
       endpoint "/#{org_id}/image/deployed"
       get
     end
+
+    def show(image_id)
+      endpoint "/#{org_id}/image/#{image_id}"
+      get
+    end
   end
 end
