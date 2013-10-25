@@ -16,8 +16,7 @@ module Opsource::API
     end
 
     def show(network_id)
-      org_endpoint "/network/#{network_id}"
-      get
+      list_with_location.select{|n| n.id == network_id}
     end
 
     def natrule_list(network_id)
