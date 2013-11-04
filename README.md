@@ -8,7 +8,7 @@ Designed for easy extensibility. See `lib/opsource/api` folder for examples.
 
 ### Install
 
-either install as a gem (__haven't tested this myself__) via Bundler
+either install as a gem via Bundler
 
 __or__
 
@@ -39,6 +39,6 @@ See `api/directory.rb`, `api/image.rb`, `api/network.rb` and `api/server.rb` for
 See `doc` folder for adding you own. `api/core.rb` is the plumbing.
 
 
-### Be a mensch
+### TODO
 
-Write some tests and make pull requests.
+Write some tests. Make pull requests.
