@@ -36,6 +36,11 @@ module Opsource::API
       list(options)
     end
 
+    def show_by_name(name, options = {})
+      options[:name] = name
+      list(options)
+    end
+
     def show_with_disks(network_id, server_id, options = {})
       list_deployed_with_disks(network_id, options).select {|s| s.id == server_id}
     end
