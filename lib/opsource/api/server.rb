@@ -48,7 +48,7 @@ module Opsource::API
         name: name,
         description: description,
         vlan_resource_path: "/oec/#{org_id}/network/#{network_id}",
-        image_resource_path: "/oec/base/image/#{image_id}".
+        image_resource_path: "/oec/base/image/#{image_id}",
         is_started: 'true'
       )
 
