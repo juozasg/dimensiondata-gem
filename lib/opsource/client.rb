@@ -12,6 +12,7 @@ module Opsource
     # client.page_number = 1
     # client.order_by = 'location,created.DESCENDING'
     # client.filter_with = {location: %w(NA1 NA2), key: 'value'}
+    attr_accessor :silent, :colors # log setting
     attr_accessor :page_size, :page_number, :order_by, :filter_with
 
 
