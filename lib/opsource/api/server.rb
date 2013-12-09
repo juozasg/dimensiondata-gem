@@ -33,16 +33,21 @@ module Opsource::API
 
     def show(server_id, options = {})
       options[:id] = server_id
-      list(options)
+      single(list(options))
     end
 
     def show_by_name(name, options = {})
       options[:name] = name
-      list(options)
+      single(list(options))
+    end
+
+    def show_by_ip(ip, options = {})
+      options[:private_ip] = ip
+      single(list(options))
     end
 
     def show_with_disks(network_id, server_id, options = {})
-      list_deployed_with_disks(network_id, options).select {|s| s.id == server_id}
+      list_deployed_with_disks(network_id, options).find {|s| s.id == server_id}
     end
 
     def create(name, description, network_id, image_id)

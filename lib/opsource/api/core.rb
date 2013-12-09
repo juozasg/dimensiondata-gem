@@ -69,6 +69,14 @@ module Opsource::API
       end
     end
 
+    def single(results)
+      if results.is_a? Array
+        results.first
+      else
+        results
+      end
+    end
+
 
     ### build request
 
