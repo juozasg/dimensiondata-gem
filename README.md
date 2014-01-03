@@ -1,8 +1,8 @@
 ## opsource-gem
 
-Opsource cloud API gem designed for easy extensibility. 
+Opsource Cloud API gem designed for easy extensibility.
 
-See `lib/opsource/api` folder for examples how to add additional endpoints
+See `lib/opsource/api` folder for examples how to add additional endpoints.
 
 Inspired by https://github.com/udayakiran/opsource.
 
