@@ -101,7 +101,7 @@ module Opsource::API
     end
 
     # Examples predictor= LEAST_CONNECTIONS | ROUND_ROBIN
-    def server_farm_presictor(network-id, server_farm_id, predictor)
+    def server_farm_presictor(network_id, server_farm_id, predictor)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}"
       xml_params(predictor: predictor)
       post
