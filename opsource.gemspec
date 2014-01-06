@@ -5,8 +5,8 @@ require "opsource/version"
 Gem::Specification.new do |s|
   s.name        = "opsource"
   s.version     = Opsource::VERSION
-  s.authors     = ["Tim Wade"]
-  s.email       = ["pimpingeezer@gmail.com"]
+  s.authors     = ["Juozas Gaigalas", "Tim Wade"]
+  s.email       = ["juozasgaigalas@gmail.com", "pimpingeezer@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{Opsource REST API client gem}
   s.description = %q{Simple wrapper to access opsource cloud's api'}
