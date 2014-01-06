@@ -36,7 +36,7 @@ pp c.server.show_with_disks(server.network_id, server.id)
 
 ### Add your own API calls
 
-For supported methods see:
+For already supported methods see:
 ```
 api/directory.rb
 api/image.rb
@@ -45,7 +45,7 @@ api/server.rb
 api/vip.rb
 ```
 
-See `doc` folder for adding you own. `api/core.rb` is the plumbing.
+See `doc` folder for API info needed for adding you own methods. `api/core.rb` is the plumbing.
 
 
 ### TODO
