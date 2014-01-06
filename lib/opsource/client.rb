@@ -46,7 +46,7 @@ module Opsource
     def server
       Opsource::API::Server.new(self)
     end
-    
+
     def vip
       Opsource::API::Vip.new(self)
     end
