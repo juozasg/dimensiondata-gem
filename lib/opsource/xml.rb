@@ -28,11 +28,3 @@ module Opsource
     end
   end
 end
-
-    # def network_natrule_create_request_xml(params)
-    #   xml = xml_header
-    #   xml += '<NatRule xmlns="http://oec.api.opsource.net/schemas/network">'
-    #   xml += "<name>#{params[:name]}</name> <sourceIp>#{params[:sourceIp]}</sourceIp>"
-    #   xml += "</NatRule>"
-    #   xml
-    # end
