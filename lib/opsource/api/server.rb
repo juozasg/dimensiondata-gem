@@ -79,6 +79,7 @@ module Opsource::API
         memory: memory
       )
       org_endpoint "/server/#{server_id}"
+      post
     end
 
     def start(server_id)
