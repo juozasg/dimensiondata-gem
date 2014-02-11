@@ -5,7 +5,7 @@ module Opsource
     include Opsource::XML
 
     attr_reader :api_base, :org_id, :username, :password
-    attr_reader :image, :directory, :network, :server
+    attr_reader :image, :directory, :network, :server, :account
 
     ### FILTERS
     # client.page_size = 10
@@ -45,6 +45,10 @@ module Opsource
 
     def server
       Opsource::API::Server.new(self)
+    end
+
+    def account
+      Opsource::API::Account.new(self)
     end
 
     def vip
