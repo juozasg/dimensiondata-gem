@@ -16,7 +16,11 @@ module Opsource::API
     end
 
     def show(network_id)
-      list_with_location.select{|n| n.id == network_id}
+      list_with_location.find {|n| n.id == network_id}
+    end
+
+    def show_by_name(name)
+     list_with_location.find {|n| n.name == name}
     end
 
     def natrule_list(network_id)
