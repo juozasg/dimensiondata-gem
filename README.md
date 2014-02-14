@@ -28,7 +28,7 @@ dev_org_id    = 'my-super-secret-org-numbersandletters'
 dev_user      = 'me'
 dev_password  = 'very secret'
 
-c = OpsourceClient::Client.new(api_base, dev_org_id, dev_user, dev_password)
+c = Opsource::Client.new(api_base, dev_org_id, dev_user, dev_password)
 
 server = c.server.list(name: 'myfavoritevm')
 pp c.server.show_with_disks(server.network_id, server.id)
