@@ -22,9 +22,25 @@ module Opsource
       xml = xml_header
       xml += "<#{tag} xmlns=\"#{schema_url}\">\n"
       params.each do |k, value|
-        xml += "<#{k}>#{value}</#{k}>\n"
+
+        xml += build_xml_helper(k, value)
+        xml += "\n"
       end
       xml += "</#{tag}>\n"
     end
+
+    def build_xml_helper(key, value)
+        result = "<#{key}>"
+        if value.is_a?(Hash)
+            value.each do |k, v|
+                result += build_xml_helper(k,v)
+            end
+        else
+            result += "#{value}"
+        end
+        result += "</#{key}>"
+        result
+    end
+
   end
 end
