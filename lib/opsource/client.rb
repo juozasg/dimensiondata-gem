@@ -6,7 +6,7 @@ module Opsource
 
     attr_reader :api_base, :org_id, :username, :password
     attr_reader :image, :directory, :network, :server, :account
-    attr_reader :datacenter
+    attr_reader :datacenter, :default_password
 
     ### FILTERS
     # client.page_size = 10
@@ -18,12 +18,13 @@ module Opsource
 
 
 
-    def initialize(api_base, org_id, username, password, colors = true, silent = false, datacenter="EU1")
+    def initialize(api_base, org_id, username, password, colors = true, silent = false, datacenter="EU1", default_password="verysecurepassword")
       @api_base = api_base
       @org_id       = org_id
       @username     = username
       @password     = password
       @datacenter   = datacenter
+      @default_password     = password
 
       @colors = colors
       @silent = silent
