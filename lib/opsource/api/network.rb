@@ -5,6 +5,12 @@ module Opsource::API
       get
     end
 
+    def create(name, description="", datacenter=@client.datacenter)
+      org_endpoint "/networkWithLocation"
+      xml_params(schema: "network", tag: "NewNetworkWithLocation", name: name, description: description, location: datacenter)
+      post
+    end
+
     def list_with_location
       org_endpoint "/networkWithLocation"
       get
