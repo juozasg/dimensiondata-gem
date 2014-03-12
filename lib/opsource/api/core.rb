@@ -46,7 +46,12 @@ module Opsource::API
       perform :post
     end
 
-    def perform(method)
+    def get_simple
+        perform :get, true
+    end
+
+    #do not parse response if simple
+    def perform(method, simple=false)
       request = @client.build_request(method, @endpoint, request_query_string, request_xml_body)
       response = @client.perform_request(request)
 
@@ -54,16 +59,20 @@ module Opsource::API
 
       # return parsed object if it's good
       if response.success?
-        result = @client.parse_response_xml_body(response.body)
-        if result['total_count']
-          log "#{result['total_count']} total", :yellow, :bold
-          result.delete('page_size')
-          result.delete('total_count')
-          result.delete('page_count')
-          result.delete('page_number')
+        if simple
+          result = response.body
+        else
+          result = @client.parse_response_xml_body(response.body)
+          if result['total_count']
+            log "#{result['total_count']} total", :yellow, :bold
+            result.delete('page_size')
+            result.delete('total_count')
+            result.delete('page_count')
+            result.delete('page_number')
+          end
+          # unwind some arrays of elements
+          result.values.count == 1 ? result.values.first : result
         end
-        # unwind some arrays of elements
-        result.values.count == 1 ? result.values.first : result
       else
         {}
       end
