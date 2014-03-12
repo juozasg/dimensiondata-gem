@@ -59,12 +59,15 @@ module Opsource::API
       get
     end
 
-    # Examples name = Probe1, type = TCP, probeIntervalSeconds = "60", errorCountBeforeServerFail = "5" maxReplyWaitSeconds = "10"
-    #def server_farm_create (network_id)
-     # org_endpoint "/network/#{network_id}/serverFarm"
-      #xml_params(name: name, predictor: predictor)
-      #post
-    #end
+    def server_farm_create (network_id, name, real_server_id, port, predictor)
+      if ["ROUND_ROBIN", "LEAST_CONNECTIONS"].include? predictor
+        org_endpoint "/network/#{network_id}/serverFarm"
+        xml_params(schema: "vip", tag: "NewServerFarm", name: name, predictor: predictor, real_server: {id: real_server_id, port: port})
+        post
+      else
+        raise "Unknown predictor: #{predictor}"
+      end
+    end
 
     def server_farm_delete (network_id, server_farm_id)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}?delete"
