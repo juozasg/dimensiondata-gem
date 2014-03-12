@@ -10,7 +10,7 @@ module Opsource::API
     # Examples name = RealServer1, server_id = "415a7f70-1008-42a3-8375-5dcf52636cc5", in_service = true/false
     def real_server_create (network_id, name, server_id, in_service)
       org_endpoint "/network/#{network_id}/realServer"
-      xml_params(name: name, server_id: serverId, in_service: inService)
+      xml_params(tag: "NewRealServer", schema: "vip", name: name, server_id: server_id, in_service: in_service)
       post
     end
 

@@ -59,7 +59,7 @@ module Opsource
     end
 
     def vip
-      Opsource::API::Vip.new(self)
+      Opsource::API::VIP.new(self)
     end
 
     def filter_params
