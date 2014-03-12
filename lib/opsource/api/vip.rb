@@ -3,7 +3,7 @@ module Opsource::API
 
   # Real Server section
     def real_servers_list (network_id)
-      org_endpoint '/network/#{network_id}/realServer'
+      org_endpoint "/network/#{network_id}/realServer"
       get
     end
 
