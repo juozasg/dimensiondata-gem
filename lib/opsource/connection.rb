@@ -36,13 +36,6 @@ module Opsource
 
     def perform_request(request)
       log "\nrequesting #{request.url}...", :yellow
-      puts "body:"
-      puts "body:"
-      puts "body:"
-      puts "body:"
-      puts "body:"
-      puts request.options
-      puts request.encoded_body
       request.run
     end
 
