@@ -18,13 +18,13 @@ module Opsource
 
 
 
-    def initialize(api_base, org_id, username, password, colors = true, silent = false, datacenter="EU1", default_password="verysecurepassword")
+    def initialize(api_base, org_id, username, password, default_password="verysecurepassword", datacenter="EU1", colors = true, silent = false)
       @api_base = api_base
       @org_id       = org_id
       @username     = username
       @password     = password
       @datacenter   = datacenter
-      @default_password     = password
+      @default_password     = default_password
 
       @colors = colors
       @silent = silent
