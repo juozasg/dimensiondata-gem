@@ -5,7 +5,7 @@ module Opsource
     include Opsource::XML
 
     attr_reader :api_base, :org_id, :username, :password
-    attr_reader :image, :directory, :network, :server, :account
+    attr_reader :image, :directory, :network, :server, :account, :report
     attr_reader :datacenter, :default_password
 
     ### FILTERS
@@ -52,6 +52,10 @@ module Opsource
 
     def account
       Opsource::API::Account.new(self)
+    end
+
+    def report
+      Opsource::API::Report.new(self)
     end
 
     def vip
