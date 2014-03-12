@@ -110,5 +110,16 @@ module Opsource::API
       post
     end
 
+    def vip_list(network_id)
+      org_endpoint "/network/#{network_id}/vip"
+      get
+    end
+
+    def vip_create(network_id, name, port, protocol, server_farm_id)
+      org_endpoint "/network/#{network_id}/vip"
+      xml_params(schema: "vip", tag: "NewVip", name: name, port: port, protocol: protocol, vip_target_type: "SERVER_FARM", vip_target_id: server_farm_id, reply_to_icmp: true, in_service: true)
+      post
+    end
+
   end
 end
