@@ -15,6 +15,13 @@ module Opsource
       raise e
     end
 
+    def build_request_simple_body(params)
+      params = camelize_keys(params)
+      #simple construction of post body...
+      body = params.map { |k, v| "#{k}=#{v}&" }
+      body.join
+    end
+
     def build_request_xml_body(schema, tag, params)
       params = camelize_keys(params)
       schema_url = "http://oec.api.opsource.net/schemas/#{schema}"

@@ -35,6 +35,9 @@ module Opsource::API
       @xml_params = x
     end
 
+    def simple_params(x)
+      @simple_params = x
+    end
 
     ### perform request
 
@@ -50,9 +53,18 @@ module Opsource::API
         perform :get, true
     end
 
+    def post_simple
+        perform :post, true
+    end
+
     #do not parse response if simple
+    #if simple, post body is also simple...
     def perform(method, simple=false)
-      request = @client.build_request(method, @endpoint, request_query_string, request_xml_body)
+      if simple
+        request = @client.build_request(method, @endpoint, request_query_string, request_simple_body, false)
+      else
+        request = @client.build_request(method, @endpoint, request_query_string, request_xml_body)
+      end
       response = @client.perform_request(request)
 
       @client.log_response(request, response)
@@ -102,6 +114,12 @@ module Opsource::API
       tag = @xml_params.delete(:tag)
 
       body = @client.build_request_xml_body(schema, tag, @xml_params)
+      log(body, :green)
+      body
+    end
+    def request_simple_body
+      return if @simple_params.blank?
+      body = @client.build_request_simple_body(@simple_params)
       log(body, :green)
       body
     end

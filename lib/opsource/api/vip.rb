@@ -77,15 +77,15 @@ module Opsource::API
     # Examples realServerId = "RealServer1", realSeverPort = "80"
     def real_server_to_server_farm (network_id, server_farm_id, real_server_id, real_server_port)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}/addRealServer"
-      xml_params(real_server_id: real_server_id, real_sever_port: real_server_port)
-      post
+      simple_params(real_server_id: real_server_id, real_server_port: real_server_port)
+      post_simple
     end
 
     # Examples realServerId = "RealServer1", realSeverPort = "80"
     def real_server_from_server_farm (network_id, server_farm_id, real_server_id, real_server_port)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}/removeRealServer"
-      xml_params(real_server_id: real_server_id, real_server_port: real_server_port)
-      post
+      simple_params(real_server_id: real_server_id, real_server_port: real_server_port)
+      post_simple
     end
 
 

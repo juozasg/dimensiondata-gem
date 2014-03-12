@@ -1,17 +1,27 @@
 module Opsource
   module Connection
-    def build_request(type, endpoint, query = nil, body = nil)
+    def build_request(type, endpoint, query = nil, body = nil, xml=true)
       # url = "https://cloudapi.nttamerica.com/oec/0.9" + "/server"
       uri = api_base + endpoint
       append_query(uri, query) if query
 
-      request = Typhoeus::Request.new(
-        uri,
-        method: type,
-        body: body,
-        userpwd: "#{@username}:#{@password}",
-        headers: { 'Content-Type' =>'text/xml', 'User-Agent' => 'ACP Ruby SDK' }
-      )
+      if xml
+        request = Typhoeus::Request.new(
+          uri,
+          method: type,
+          body: body,
+          userpwd: "#{@username}:#{@password}",
+            headers: { 'Content-Type' =>'text/xml', 'User-Agent' => 'ACP Ruby SDK' }
+        )
+      else
+        request = Typhoeus::Request.new(
+          uri,
+          method: type,
+          body: body,
+          userpwd: "#{@username}:#{@password}",
+            headers: {  'User-Agent' => 'ACP Ruby SDK' }
+        )
+      end
     end
 
     def append_query(uri, query)
@@ -26,6 +36,13 @@ module Opsource
 
     def perform_request(request)
       log "\nrequesting #{request.url}...", :yellow
+      puts "body:"
+      puts "body:"
+      puts "body:"
+      puts "body:"
+      puts "body:"
+      puts request.options
+      puts request.encoded_body
       request.run
     end
 
