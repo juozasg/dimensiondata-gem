@@ -50,7 +50,7 @@ module Opsource::API
       list_deployed_with_disks(network_id, options).find {|s| s.id == server_id}
     end
 
-    def create(name, description, network_id, image_id, administrator_password=@client.password)
+    def create(name, description, network_id, image_id, administrator_password=@client.default_password)
       org_endpoint "/server"
       xml_params(
         tag: "Server",
