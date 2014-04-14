@@ -3,14 +3,14 @@ module Opsource::API
 
   # Real Server section
     def real_servers_list (network_id)
-      org_endpoint '/network/#{network_id}/realServer'
+      org_endpoint "/network/#{network_id}/realServer"
       get
     end
 
     # Examples name = RealServer1, server_id = "415a7f70-1008-42a3-8375-5dcf52636cc5", in_service = true/false
     def real_server_create (network_id, name, server_id, in_service)
       org_endpoint "/network/#{network_id}/realServer"
-      xml_params(name: name, server_id: serverId, in_service: inService)
+      xml_params(tag: "NewRealServer", schema: "vip", name: name, server_id: server_id, in_service: in_service)
       post
     end
 
@@ -59,12 +59,15 @@ module Opsource::API
       get
     end
 
-    # Examples name = Probe1, type = TCP, probeIntervalSeconds = "60", errorCountBeforeServerFail = "5" maxReplyWaitSeconds = "10"
-    #def server_farm_create (network_id)
-     # org_endpoint "/network/#{network_id}/serverFarm"
-      #xml_params(name: name, predictor: predictor)
-      #post
-    #end
+    def server_farm_create (network_id, name, real_server_id, port, predictor)
+      if ["ROUND_ROBIN", "LEAST_CONNECTIONS"].include? predictor
+        org_endpoint "/network/#{network_id}/serverFarm"
+        xml_params(schema: "vip", tag: "NewServerFarm", name: name, predictor: predictor, real_server: {id: real_server_id, port: port})
+        post
+      else
+        raise "Unknown predictor: #{predictor}"
+      end
+    end
 
     def server_farm_delete (network_id, server_farm_id)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}?delete"
@@ -74,15 +77,15 @@ module Opsource::API
     # Examples realServerId = "RealServer1", realSeverPort = "80"
     def real_server_to_server_farm (network_id, server_farm_id, real_server_id, real_server_port)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}/addRealServer"
-      xml_params(real_server_id: real_server_id, real_sever_port: real_server_port)
-      post
+      simple_params(real_server_id: real_server_id, real_server_port: real_server_port)
+      post_simple
     end
 
     # Examples realServerId = "RealServer1", realSeverPort = "80"
     def real_server_from_server_farm (network_id, server_farm_id, real_server_id, real_server_port)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}/removeRealServer"
-      xml_params(real_server_id: real_server_id, real_server_port: real_server_port)
-      post
+      simple_params(real_server_id: real_server_id, real_server_port: real_server_port)
+      post_simple
     end
 
 
@@ -101,9 +104,20 @@ module Opsource::API
     end
 
     # Examples predictor= LEAST_CONNECTIONS | ROUND_ROBIN
-    def server_farm_presictor(network_id, server_farm_id, predictor)
+    def server_farm_predictor(network_id, server_farm_id, predictor)
       org_endpoint "/network/#{network_id}/serverFarm/#{server_farm_id}"
       xml_params(predictor: predictor)
+      post
+    end
+
+    def vip_list(network_id)
+      org_endpoint "/network/#{network_id}/vip"
+      get
+    end
+
+    def vip_create(network_id, name, port, protocol, server_farm_id)
+      org_endpoint "/network/#{network_id}/vip"
+      xml_params(schema: "vip", tag: "NewVip", name: name, port: port, protocol: protocol, vip_target_type: "SERVER_FARM", vip_target_id: server_farm_id, reply_to_icmp: true, in_service: true)
       post
     end
 

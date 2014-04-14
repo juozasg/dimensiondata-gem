@@ -5,6 +5,12 @@ module Opsource::API
       get
     end
 
+    def create(name, description="", datacenter=@client.datacenter)
+      org_endpoint "/networkWithLocation"
+      xml_params(schema: "network", tag: "NewNetworkWithLocation", name: name, description: description, location: datacenter)
+      post
+    end
+
     def list_with_location
       org_endpoint "/networkWithLocation"
       get
@@ -31,7 +37,7 @@ module Opsource::API
     # name = "10.147.15.11", source_ip = "10.147.15.11"
     def natrule_create(network_id, name, source_ip)
       org_endpoint "/network/#{network_id}/natrule"
-      xml_params(name: name, source_ip: source_ip)
+      xml_params(schema: "network", tag: "NatRule", name: name, source_ip: source_ip)
       post
     end
 
@@ -40,5 +46,20 @@ module Opsource::API
       get
     end
 
+    def aclrule_list(network_id)
+      org_endpoint "/network/#{network_id}/aclrule"
+      get
+    end
+
+    def aclrule_delete(network_id, aclrule_id)
+      org_endpoint "/network/#{network_id}/aclrule/#{aclrule_id}?delete"
+      get
+    end
+
+    def aclrule_create(network_id, name, position, inbound, protocol, port, allow)
+      org_endpoint "/network/#{network_id}/aclrule"
+      xml_params(schema: "network", tag: "AclRule", name: name, position: position, action: (allow ? "PERMIT" : "DENY"), protocol: protocol, source_ip_range: {}, destination_ip_range: {}, port_range: {type: "EQUAL_TO", port1: port}, type: (inbound ? "OUTSIDE_ACL" : "INSIDE_ACL"))
+      post
+    end
   end
 end

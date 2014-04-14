@@ -5,7 +5,8 @@ module Opsource
     include Opsource::XML
 
     attr_reader :api_base, :org_id, :username, :password
-    attr_reader :image, :directory, :network, :server, :account
+    attr_reader :image, :directory, :network, :server, :account, :report
+    attr_reader :datacenter, :default_password
 
     ### FILTERS
     # client.page_size = 10
@@ -17,11 +18,13 @@ module Opsource
 
 
 
-    def initialize(api_base, org_id, username, password, colors = true, silent = false)
+    def initialize(api_base, org_id, username, password, default_password="verysecurepassword", datacenter="EU1", colors = true, silent = false)
       @api_base = api_base
       @org_id       = org_id
       @username     = username
       @password     = password
+      @datacenter   = datacenter
+      @default_password     = default_password
 
       @colors = colors
       @silent = silent
@@ -51,8 +54,12 @@ module Opsource
       Opsource::API::Account.new(self)
     end
 
+    def report
+      Opsource::API::Report.new(self)
+    end
+
     def vip
-      Opsource::API::Vip.new(self)
+      Opsource::API::VIP.new(self)
     end
 
     def filter_params

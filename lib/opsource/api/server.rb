@@ -50,7 +50,7 @@ module Opsource::API
       list_deployed_with_disks(network_id, options).find {|s| s.id == server_id}
     end
 
-    def create(name, description, network_id, image_id)
+    def create(name, description, network_id, image_id, administrator_password=@client.default_password)
       org_endpoint "/server"
       xml_params(
         tag: "Server",
@@ -59,9 +59,9 @@ module Opsource::API
         description: description,
         vlan_resource_path: "/oec/#{org_id}/network/#{network_id}",
         image_resource_path: "/oec/base/image/#{image_id}",
-        is_started: 'true'
+        is_started: 'true',
+        administrator_password: administrator_password
       )
-
       post
     end
 

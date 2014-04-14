@@ -34,6 +34,16 @@ server = c.server.list(name: 'myfavoritevm')
 pp c.server.show_with_disks(server.network_id, server.id)
 ```
 
+### Examples
+
+```
+#create a new network
+c.network.create("network-name", "description", "EU1")
+#list networks
+pp c.network.list
+
+```
+
 ### Add your own API calls
 
 For already supported methods see:

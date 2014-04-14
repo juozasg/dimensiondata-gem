@@ -15,6 +15,13 @@ module Opsource
       raise e
     end
 
+    def build_request_simple_body(params)
+      params = camelize_keys(params)
+      #simple construction of post body...
+      body = params.map { |k, v| "#{k}=#{v}&" }
+      body.join
+    end
+
     def build_request_xml_body(schema, tag, params)
       params = camelize_keys(params)
       schema_url = "http://oec.api.opsource.net/schemas/#{schema}"
@@ -22,9 +29,25 @@ module Opsource
       xml = xml_header
       xml += "<#{tag} xmlns=\"#{schema_url}\">\n"
       params.each do |k, value|
-        xml += "<#{k}>#{value}</#{k}>\n"
+
+        xml += build_xml_helper(k, value)
+        xml += "\n"
       end
       xml += "</#{tag}>\n"
     end
+
+    def build_xml_helper(key, value)
+        result = "<#{key}>"
+        if value.is_a?(Hash)
+            value.each do |k, v|
+                result += build_xml_helper(k,v)
+            end
+        else
+            result += "#{value}"
+        end
+        result += "</#{key}>"
+        result
+    end
+
   end
 end
